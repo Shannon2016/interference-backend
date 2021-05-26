@@ -1,0 +1,11 @@
+r1,o1,r2,o2
+http://www.example.org/kse/finance#执掌,http://www.example.org/kse/finance#万达集团,http://www.w3.org/1999/02/22-rdf-syntax-ns#type,http://www.example.org/kse/finance#公司
+http://www.example.org/kse/finance#执掌,http://www.example.org/kse/finance#万达集团,http://www.example.org/kse/finance#主要资产,http://www.example.org/kse/finance#地产事业
+http://www.example.org/kse/finance#执掌,http://www.example.org/kse/finance#万达集团,http://www.example.org/kse/finance#关联交易,http://www.example.org/kse/finance#万达集团
+http://www.example.org/kse/finance#执掌,http://www.example.org/kse/finance#万达集团,http://www.example.org/kse/finance#关联交易,http://www.example.org/kse/finance#融创中国
+http://www.example.org/kse/finance#执掌,http://www.example.org/kse/finance#万达集团,http://www.example.org/kse/finance#关联交易,http://www.example.org/kse/finance#乐视网
+http://www.example.org/kse/finance#股东,http://www.example.org/kse/finance#万达集团,http://www.w3.org/1999/02/22-rdf-syntax-ns#type,http://www.example.org/kse/finance#公司
+http://www.example.org/kse/finance#股东,http://www.example.org/kse/finance#万达集团,http://www.example.org/kse/finance#主要资产,http://www.example.org/kse/finance#地产事业
+http://www.example.org/kse/finance#股东,http://www.example.org/kse/finance#万达集团,http://www.example.org/kse/finance#关联交易,http://www.example.org/kse/finance#万达集团
+http://www.example.org/kse/finance#股东,http://www.example.org/kse/finance#万达集团,http://www.example.org/kse/finance#关联交易,http://www.example.org/kse/finance#融创中国
+http://www.example.org/kse/finance#股东,http://www.example.org/kse/finance#万达集团,http://www.example.org/kse/finance#关联交易,http://www.example.org/kse/finance#乐视网

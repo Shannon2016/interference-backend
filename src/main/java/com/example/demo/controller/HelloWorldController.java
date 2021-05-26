@@ -17,6 +17,7 @@ import org.apache.jena.vocabulary.RDFS;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -146,6 +147,12 @@ public class HelloWorldController {
         Model model_before = FileManager.get().loadModel(filepath+"/test_before.nt");
         Model model_after = FileManager.get().loadModel(filepath+"/test_after.nt");
 
+        Model model_2 = RDFDataMgr.loadModel(filepath+"/stock_industry_prep.csv") ;
+        OutputStream out4 = new FileOutputStream(new File(filepath+"/stock_industry_prep.nt"));
+        RDFDataMgr.write(out4, model_2, Lang.NTRIPLES);
+
+
+
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("执掌");
         arrayList.add("收购");
@@ -166,6 +173,14 @@ public class HelloWorldController {
                 OutputStream result_out = new FileOutputStream(new File(filepath+"result/"+str));
                 ResultSetFormatter.outputAsCSV(result_out, results);
                 results.reset();
+                ArrayList<MyTriple> subres = new ArrayList<>();
+                while(results.hasNext()) {
+                    QuerySolution result = results.next();
+                    MyTriple newNode = new MyTriple(result.get("s").toString().substring(finance.length()),
+                            str, result.get("o").toString().substring(finance.length()));
+                    subres.add(newNode);
+                }
+                ans.put(str, subres);
 
             } finally {
                 qexec_before.close();
@@ -184,6 +199,14 @@ public class HelloWorldController {
             OutputStream result_out = new FileOutputStream(new File(filepath+"/result/关联交易"));
             ResultSetFormatter.outputAsCSV(result_out, results);
             results.reset();
+            ArrayList<MyTriple> subres = new ArrayList<>();
+            while(results.hasNext()) {
+                QuerySolution result = results.next();
+                MyTriple newNode = new MyTriple(result.get("s").toString().substring(finance.length()),
+                        "关联交易", result.get("o").toString().substring(finance.length()));
+                subres.add(newNode);
+            }
+            ans.put("关联交易", subres);
 
         } finally {
             qexec_after.close();
@@ -201,15 +224,12 @@ public class HelloWorldController {
                 "OPTIONAL {?s1 <http://www.example.org/kse/finance#收购> ?o2. }" +
                 "}";
 
-
         Query query_path = QueryFactory.create(query_path_str);
         QueryExecution qexec_path = QueryExecutionFactory.create(query_path, model_after);
         try {
             ResultSetRewindable results = ResultSetFactory.makeRewindable(qexec_path.execSelect());
-
             OutputStream result_out = new FileOutputStream(new File(filepath+"result/path"));
             ResultSetFormatter.outputAsCSV(result_out, results);
-            System.out.println(result_out);
             results.reset();
 
         } finally {

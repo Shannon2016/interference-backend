@@ -97,7 +97,17 @@
 			<version>${junit.version}</version>
 			<!-- <scope>test</scope> -->
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>demo</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-csv</artifactId>
+			<version>3.9.0</version>
+		</dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

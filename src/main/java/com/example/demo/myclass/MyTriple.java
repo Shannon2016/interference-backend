@@ -25,6 +25,14 @@ public class MyTriple {
         }
     }
 
+    @Override
+    public int hashCode() {
+        int hashno = 7;
+        hashno = 13 * hashno + (obj1 == null ? 0 : obj1.hashCode()) + (rel == null ? 0 : rel.hashCode()) + (obj2 == null ? 0 : obj2.hashCode());
+        return hashno;
+    }
+
+
     public String getObj1() {
         return obj1;
     }

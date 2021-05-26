@@ -15,8 +15,8 @@ public class TDBCrudImpl implements TDBCrud {
         List<Statement> list = new ArrayList<>();
         //如果不输入model name，则使用系统默认的TDB model；
         if(modelName == null) {
-            modelName = "tdb_after";
-            System.out.println("MODEL NAME为空，使用默认model： tdb_after");
+            modelName = "Default_Model";
+            System.out.println("MODEL NAME为空，使用默认model： Default_Model");
         }
 
         TDBPersistence tdbPersistence = new TDBPersistence(tdb_path);

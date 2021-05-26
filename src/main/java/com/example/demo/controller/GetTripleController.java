@@ -24,58 +24,27 @@ import java.util.stream.Collectors;
 public class GetTripleController {
     @RequestMapping("/get_triple")
     public HashMap<String, ArrayList<MyTriple>> getTriple(HttpServletRequest request){
-//        String finance = "http://www.example.org/kse/finance#";
-//
-//        String subject = request.getParameter("subject");
-//        String predicate = request.getParameter("predicate");
-//        String object = request.getParameter("object");
-//        String model = request.getParameter("model");
-//        if (model == null) {
-//            model = "tdb_after";
-//        }
-//        TDBCrud tdbCrudDriver = new TDBCrudImpl();
-//        List<Statement> list1 = tdbCrudDriver.getTriplet(model, subject, predicate, object);
-//        List<MyTriple> list2 = new ArrayList<>();
-//        for (Statement s : list1) {
-//            Resource subject2 = s.getSubject();
-//            Property predicate2 = s.getPredicate();
-//            RDFNode object2 = s.getObject();
-//            list2.add(new MyTriple(subject2.toString().substring(finance.length()),
-//                    predicate2.toString().split("#")[1], object2.toString().substring(finance.length())));
-//        }
-//        HashMap<String, ArrayList<MyTriple>> ans = new HashMap<>();
-//        ans.put("data", new ArrayList<>(list2));
+        String finance = "http://www.example.org/kse/finance#";
 
-        HashMap<String, ArrayList<MyTriple>> ans = new HashMap<>();
-        ArrayList<MyTriple> results = new ArrayList<>();
         String subject = request.getParameter("subject");
         String predicate = request.getParameter("predicate");
         String object = request.getParameter("object");
-        String finance = "http://www.example.org/kse/finance#";
-        String filepath = "./src/main/resources/files/";
-        Model model_triple = FileManager.get().loadModel(filepath+"/test_after.nt");
-
-        if (subject != null)
-            subject = finance + subject;
-        if (predicate != null)
-            predicate = finance + predicate;
-        if (object != null)
-            object = finance + object;
-        Selector selector = new SimpleSelector(
-                (subject != null) ? model_triple.createResource(subject) : null,
-                (predicate != null) ? model_triple.createProperty(predicate) : null,
-                (object != null) ? model_triple.createResource(object) : null
-        );
-
-        StmtIterator it = model_triple.listStatements(selector);
-        while (it.hasNext()) {
-            Statement stmt = it.next();
-            results.add(new MyTriple(stmt.getSubject().toString().substring(finance.length()),
-                    stmt.getPredicate().toString().split("#")[1],
-                    stmt.getObject().toString().substring(finance.length())));
-//            results.add(stmt);
+        String model = request.getParameter("model");
+        if (model == null) {
+            model = "tdb_after";
         }
-        ans.put("data", results);
+        TDBCrud tdbCrudDriver = new TDBCrudImpl();
+        List<Statement> list1 = tdbCrudDriver.getTriplet(model, subject, predicate, object);
+        List<MyTriple> list2 = new ArrayList<>();
+        for (Statement s : list1) {
+            Resource subject2 = s.getSubject();
+            Property predicate2 = s.getPredicate();
+            RDFNode object2 = s.getObject();
+            list2.add(new MyTriple(subject2.toString().substring(finance.length()),
+                    predicate2.toString().split("#")[1], object2.toString().substring(finance.length())));
+        }
+        HashMap<String, ArrayList<MyTriple>> ans = new HashMap<>();
+        ans.put("data", new ArrayList<>(list2));
         return ans;
     }
 
